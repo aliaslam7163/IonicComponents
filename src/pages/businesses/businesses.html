@@ -1,0 +1,100 @@
+<!--
+  Generated template for the BusinessesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+<!--	<ion-navbar no-border-bottom>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+
+		<ion-title>Directory</ion-title>
+
+		<ion-buttons end>
+			<button class="clear-filter" ion-button icon-only (click)="clearFilter()" [hidden]="!isFilterDirty">
+				<ion-icon name="close"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="presentFilter()">
+				<ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+
+	<ion-toolbar no-border-top>
+		<ion-searchbar color="primary" [(ngModel)]="queryText" (ionInput)="updateList()" placeholder="Search"></ion-searchbar>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-scroll scrollX="true" scrollY="false" zoom="true" class="horizontal-list">
+		<button ion-button class="filter-item" color="light"
+			*ngFor="let category of categories"
+			[ngClass]="{ 'active-filter' : selectedCategory === category.$key }"
+			(click)="selectCategory(category)">
+			{{category.name}}
+		</button>
+	</ion-scroll>
+	<ion-list [hidden]="businesses.length === 0">
+		<ion-item (click)="goToBusinessDetail(business)" *ngFor="let business of businesses" text-wrap>
+			<ion-thumbnail item-start>
+				<img [src]="business.logo">
+			</ion-thumbnail>
+			<p class="distance">{{business.distance | distance}}</p>
+			<h2 padding-top>{{business.name}}</h2>
+			<h3>{{business.categoryName}}</h3>
+			<p>{{business.description | truncate: 130}}</p>
+		</ion-item>
+	</ion-list>
+
+	<ion-list-header [hidden]="businesses.length > 0">
+		No businesses found
+	</ion-list-header>
+-->
+
+</ion-header>
+
+<ion-content>
+  <form>
+  <table border="0">
+    <thead>
+      <tr>
+
+        <th><select class="form-control" [(ngModel)]="filter.category"  [ngModelOptions]="{standalone: true}">
+                    <option [ngValue]=""></option>
+                    <option *ngFor="let category of categories" [ngValue]="category"> {{category}} </option>
+            </select></th>
+
+        <th><input type="text" name="name" [(ngModel)]="filter.name" placeholder="Name"></th>
+        <th><input type="text" name="number" [(ngModel)]="filter.phone" placeholder="Number"></th>
+        <th><input type="textr" name="address" [(ngModel)]="filter.address" placeholder="Address"></th>
+        <th><input type="text" name="info" [(ngModel)]="filter.info" placeholder="Info"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <!--  <tr *ngFor="let business of businesses | businessfilter:filter">
+
+        <td>{{business.category}}</td>
+        <td>{{business.name}}</td>
+        <td>{{business.phone}}</td>
+        <td>{{business.address}}</td>
+        <td>{{business.info}}</td>
+      </tr>-->
+    </tbody>
+  </table>
+  </form>
+
+  <ion-list [hidden]="businesses.length === 0">
+    <ion-item (click)="goToBusinessDetail(business)" *ngFor="let business of businesses | businessfilter:filter" text-wrap>
+      <ion-thumbnail item-start>
+    <!--    <img [src]="business.logo"> -->
+      </ion-thumbnail>
+      <p class="distance">{{business.distance}}</p>
+      <h2 padding-top>{{business.name}}</h2>
+      <h3>{{business.category}}</h3>
+      <p>{{business.info}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

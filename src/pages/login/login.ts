@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LoggedinPage } from '../loggedin/loggedin';
 import {User } from '../../models/user';
+import { StartupProvider } from './../../providers/startup/startup';
+import { LoginStatusProvider } from './../../providers/login-status/login-status';
 
 
 /**
@@ -21,8 +23,16 @@ export class LoginPage {
 	/*@ViewChild('username') user;
 	@ViewChild('password') password;*/
   user = {} as User;
+  retrieveData : any;
 
-  constructor(private alertCtrl: AlertController, private fire:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private fire:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
+              private LoginStatusProvider: LoginStatusProvider) {
+    this.retrieveData = this.LoginStatusProvider.getLoginStatus();
+    console.log(this.retrieveData);
+    if(this.retrieveData._zone_symbol_value == null)
+    {
+      console.log('getLoginStatus ran in login page');
+    }
   }
 
   ionViewDidLoad() {

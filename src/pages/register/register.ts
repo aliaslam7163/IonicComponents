@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Storage } from '@ionic/storage';
 import {User} from '../../models/user';
 
 /**
@@ -19,7 +20,9 @@ export class RegisterPage {
 
 	user = {} as User;
 
-  constructor(private alertCtrl: AlertController, private fire: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, private fire: AngularFireAuth,
+    public navCtrl: NavController, public navParams: NavParams,
+    private storage:Storage) {
 
   }
 
@@ -46,6 +49,7 @@ export class RegisterPage {
       this.alert(error.message);
     });
   	console.log('Would register user with ', user.email, user.password);
+    this.storage.set('loginStatus','Online');
   }
 
 }
